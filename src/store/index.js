@@ -8,35 +8,35 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     loadedFunruns: [
-        {
-          imageUrl: 'https://farm5.staticflickr.com/4728/25523344408_88d90c85b7_k_d.jpg',
-          id: 'asdf12345asdf',
-          title: 'Funrun in London',
-          date: new Date(),
-          location: 'London',
-          description: 'Tired of London, tired of life'
-        },
-        {
-          imageUrl: 'https://farm5.staticflickr.com/4414/36574024414_977fb861c2_k_d.jpg',
-          id: 'asdf098765432asdf',
-          title: 'Funrun in Berlin',
-          date: new Date(),
-          location: 'Berlin',
-          description: 'I like bears'
-        }
+      {
+        imageUrl: 'https://farm5.staticflickr.com/4728/25523344408_88d90c85b7_k_d.jpg',
+        id: 'asdf12345asdf',
+        title: 'Funrun in London',
+        date: new Date(),
+        location: 'London',
+        description: 'Tired of London, tired of life'
+      },
+      {
+        imageUrl: 'https://farm5.staticflickr.com/4414/36574024414_977fb861c2_k_d.jpg',
+        id: 'asdf098765432asdf',
+        title: 'Funrun in Berlin',
+        date: new Date(),
+        location: 'Berlin',
+        description: 'I like bears'
+      }
     ],
     user: null,
     loading: false,
     error: null
   },
   mutations: {
-    setLoadedFunruns (state, payload) {
+    setLoadedFunruns(state, payload) {
       state.loadedFunruns = payload
     },
-    createFunrun (state, payload) {
+    createFunrun(state, payload) {
       state.loadedFunruns.push(payload)
     },
-    updateFunrun (state, payload) {
+    updateFunrun(state, payload) {
       const funrun = state.loadedFunruns.find(funrun => {
         return funrun.id === payload.id
       })
@@ -50,21 +50,21 @@ export const store = new Vuex.Store({
       //   funrun.date = payload.date
       // }
     },
-    setUser (state, payload) {
+    setUser(state, payload) {
       state.user = payload
     },
-    setLoading (state, payload) {
+    setLoading(state, payload) {
       state.loading == payload
     },
-    setError (state, payload) {
+    setError(state, payload) {
       state.error = payload
     },
-    clearError (state) {
+    clearError(state) {
       state.error = null
     }
   },
   actions: {
-    loadFunruns ({commit}) {
+    loadFunruns({ commit }) {
       commit('setLoading', true)
       firebase.database().ref('funruns').once('value')
         .then((data) => {
@@ -91,14 +91,14 @@ export const store = new Vuex.Store({
           }
         )
     },
-    createFunrun ({commit, getters}, payload) {
+    createFunrun({ commit, getters }, payload) {
       const funrun = {
         title: payload.title,
         location: payload.location,
         description: payload.description,
         // date: payload.date,
         creatorId: getters.user.id
-        }
+      }
       let imageUrl
       let key
       firebase.database().ref('funruns').push(funrun)
@@ -118,7 +118,7 @@ export const store = new Vuex.Store({
         })
         .then(url => {
           imageUrl = url;
-          return firebase.database().ref('funruns').child(key).update({imageUrl: imageUrl});
+          return firebase.database().ref('funruns').child(key).update({ imageUrl: imageUrl });
         })
         .then(() => {
           commit('createFunrun', {
@@ -132,7 +132,7 @@ export const store = new Vuex.Store({
         })
       // Reach out to firebase and store it
     },
-    updateFunrunData ({commit}, payload) {
+    updateFunrunData({ commit }, payload) {
       commit('setLoading', true)
       const updateObj = {}
       if (payload.title) {
@@ -146,15 +146,15 @@ export const store = new Vuex.Store({
       // }
       firebase.database().ref('funruns').child(payload.id).update(updateObj)
         .then(() => {
-            commit('setLoading', false)
-            commit('updateFunrun', payload)
+          commit('setLoading', false)
+          commit('updateFunrun', payload)
         })
         .catch(error => {
           console.log(error)
           commit('setLoading', false)
         })
     },
-    signUserUp ({commit}, payload) {
+    signUserUp({ commit }, payload) {
       commit('setLoading', true)
       commit('clearError')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
@@ -176,7 +176,7 @@ export const store = new Vuex.Store({
           }
         )
     },
-    signUserIn ({commit}, payload) {
+    signUserIn({ commit }, payload) {
       commit('setLoading', true)
       commit('clearError')
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
@@ -198,55 +198,74 @@ export const store = new Vuex.Store({
           }
         )
     },
-    signInFacebook () {
+    signInFacebook() {
       var provider = new firebase.auth.FacebookAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
+      firebase.auth().signInWithPopup(provider).then(function (result) {
         var token = result.credential.accessToken;
         var user = result.user;
-  
-      }).catch(function(error) {
+
+      }).catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         var email = error.email;
         var credential = error.credential;
-      
+
       });
     },
-    
-    autoSignIn ({commit}, payload) {
-      commit('setUser', {id: payload.uid, registeredFunruns: []})
+    signInGitHub() {
+      var provider = new firebase.auth.GithubAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
     },
-    logout({commit}) {
+
+    autoSignIn({ commit }, payload) {
+      commit('setUser', { id: payload.uid, registeredFunruns: [] })
+    },
+    logout({ commit }) {
       firebase.auth().signOut()
       commit('setUser', null)
     },
-    clearError ({commit}) {
+    clearError({ commit }) {
       commit('clearError')
     }
   },
   getters: {
-    loadedFunruns (state) {
+    loadedFunruns(state) {
       return state.loadedFunruns.sort((funrunA, funrunB) => {
         return funrunA.date > funrunB.date
       })
     },
-    featuredFunruns (state, getters) {
+    featuredFunruns(state, getters) {
       return getters.loadedFunruns.slice(0, 5)
     },
-    loadedFunrun (state) {
+    loadedFunrun(state) {
       return (funrunId) => {
         return state.loadedFunruns.find((funrun) => {
           return funrun.id === funrunId
         })
       }
     },
-    user (state) {
+    user(state) {
       return state.user
     },
-    loading (state) {
+    loading(state) {
       return state.loading
     },
-    error (state) {
+    error(state) {
       return state.error
     }
   }

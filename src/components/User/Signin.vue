@@ -39,9 +39,13 @@
                        <span slot="loader" class="custom-loader">
                          <v-icon light>cached</v-icon>
                        </span>
-
                      </v-btn>
                        <v-btn type="button" v-on:click="onSigninFacebook">Facebook
+                       <span slot="loader" class="custom-loader">
+                         <v-icon light>cached</v-icon>
+                       </span>
+                     </v-btn>
+                        <v-btn type="button" v-on:click="onSigninGitHub">GitHub
                        <span slot="loader" class="custom-loader">
                          <v-icon light>cached</v-icon>
                        </span>
@@ -58,44 +62,51 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        email: '',
-        password: ''
-      }
+export default {
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
     },
-    computed: {
-      user () {
-        return this.$store.getters.user
-      },
-      error () {
-        return this.$store.getters.error
-      },
-      loading () {
-        return this.$store.getters.loading
-      }
+    error() {
+      return this.$store.getters.error;
     },
-    watch: {
-      user (value) {
-        if (value !== null && value !== undefined) {
-          this.$router.push('/')
-        }
-      }
-    },
-    methods: {
-      onSignin () {
-        // Vuex
-        this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
-      },
-       onSigninFacebook () {
-        // Vuex
-        this.$store.dispatch('signInFacebook')
-      },
-      onDismissed () {
-        console.log('Dismissed Alert!')
-        this.$store.dispatch('clearError')
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push("/");
       }
     }
+  },
+  methods: {
+    onSignin() {
+      // Vuex
+      this.$store.dispatch("signUserIn", {
+        email: this.email,
+        password: this.password
+      });
+    },
+    onSigninFacebook() {
+      // Vuex
+      this.$store.dispatch("signInFacebook");
+    },
+    onSigninGitHub() {
+      // Vuex
+      this.$store.dispatch("signInGitHub");
+    },
+    onDismissed() {
+      console.log("Dismissed Alert!");
+      this.$store.dispatch("clearError");
+    }
   }
+};
 </script>
