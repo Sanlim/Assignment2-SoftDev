@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h4>Create a new Funrun</h4>
+        <h4>Create a new Funread</h4>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -12,7 +12,7 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
               name="title"
-              label="Title"
+              label="ชื่อเรื่อง"
               id="title"
               v-model="title"
               required></v-text-field>
@@ -22,7 +22,7 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
               name="location"
-              label="Location"
+              label="เรื่องย่อ"
               id="location"
               v-model="location"
               required></v-text-field>
@@ -30,7 +30,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn raised class="primary" @click="onPickFile">Upload Image</v-btn>
+              <v-btn raised class="primary" @click="onPickFile">อัปโหลดรูปการ์ตูน</v-btn>
               <input type=file style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"></input>
             </v-flex>
           </v-layout>
@@ -43,34 +43,38 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
               name="description"
-              label="Description"
+              label="คำอธิบายการ์ตูน"
               id="description"
               v-model="description"
               multi-line
               required></v-text-field>
             </v-flex>
           </v-layout>
+<!--
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <h4>Choose a date and time</h4>
             </v-flex>
           </v-layout>
+
           <v-layout row class="mb-2">
             <v-flex xs12 sm6 offset-sm3>
               <v-date-picker v-model="date"></v-date-picker>
             </v-flex>
           </v-layout>
+
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-time-picker v-model="time" format="24hr"></v-time-picker>
             </v-flex>
           </v-layout>
+-->
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-btn
               class="primary"
               :disabled="!formIsValid"
-              type="submit">Create Funrun</v-btn>
+              type="submit">เพิ่มการ์ตูน</v-btn>
             </v-flex>
           </v-layout>
         </form>
