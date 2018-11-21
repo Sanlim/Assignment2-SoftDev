@@ -1,4 +1,4 @@
-# funrun
+# funread
 
 > [paused 27 Sep: ~80% feature complete] Meetup-style app with images, date, time, authentication, built with Vue + Vuetify + Firebase. Based on devmeetup project by Max Schwarzmueller.
 
