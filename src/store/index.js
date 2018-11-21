@@ -76,6 +76,7 @@ export const store = new Vuex.Store({
               title: obj[key].title,
               description: obj[key].description,
               imageUrl: obj[key].imageUrl,
+              imageUrl2: obj[key].imageUrl2,
               // date: obj[key].date,
               location: obj[key].location,
               creatorId: obj[key].creatorId
@@ -100,7 +101,9 @@ export const store = new Vuex.Store({
         creatorId: getters.user.id
       }
       let imageUrl
+      let imageUrl2
       let key
+      let key2
       firebase.database().ref('funruns').push(funrun)
         .then((data) => {
           key = data.key
@@ -120,11 +123,39 @@ export const store = new Vuex.Store({
           imageUrl = url;
           return firebase.database().ref('funruns').child(key).update({ imageUrl: imageUrl });
         })
+
+        .then((data) => {
+          key2 = data.key
+          return key2
+        })
+        .then(key2 => {
+          const filename2 = payload.image2.name
+          const ext = filename2.slice(filename2.lastIndexOf('.'))
+          return firebase.storage().ref('funruns/' + key2 + ext).put(payload.image2)
+        })
+        .then(filedata => {
+          let imagePath = filedata.metadata.fullPath;
+          // creating ref to our image file and get the url
+          return firebase.storage().ref().child(imagePath).getDownloadURL();
+        })
+        .then(url => {
+          imageUrl2 = url;
+          return firebase.database().ref('funruns').child(key2).update({ imageUrl2: imageUrl2 });
+        })
+
         .then(() => {
           commit('createFunrun', {
             ...funrun,
             imageUrl: imageUrl,
             id: key
+          })
+        })
+
+        .then(() => {
+          commit('createFunrun', {
+            ...funrun,
+            imageUrl2: imageUrl2,
+            id: key2
           })
         })
         .catch((error) => {
