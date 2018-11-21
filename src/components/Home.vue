@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-layout row wrap>
+    <!--v-layout row wrap>
       <v-flex xs-12 sm12 class="text-xs-center text-sm-center">
         <v-btn large router to="/funruns" class="info">อ่านการ์ตูนทั้งหมด</v-btn>
       </v-flex>
-    </v-layout>
+    </v-layout>-->
     <v-layout>
       <v-flex xs12 class="text-xs-center">
         <v-progress-circular
@@ -50,7 +50,7 @@
     },
     methods: {
       onLoadFunrun(id) {
-        this.$router.push('/funruns/' + id)
+        this.$router.push('/funreads/' + id)
       }
     }
   }

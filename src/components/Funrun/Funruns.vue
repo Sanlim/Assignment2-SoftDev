@@ -15,11 +15,11 @@
               <v-card-title primary-title>
                 <div>
                   <h2 class="white--text mb-0">{{ funrun.title }}</h2>
-                  <div>{{ funrun.date | date }}</div>
+                  <div>{{ funrun.location }}</div>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat :to="'/funruns/' + funrun.id"><v-icon left light>arrow_forward</v-icon>อ่านเพิ่มเติม</v-btn>
+                <v-btn flat :to="'/funreads/' + funrun.id"><v-icon left light>arrow_forward</v-icon>อ่านเพิ่มเติม</v-btn>
               </v-card-actions>
           </v-flex>
           </v-layout>

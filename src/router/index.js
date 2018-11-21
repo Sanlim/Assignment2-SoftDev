@@ -19,18 +19,18 @@ export default new Router({
       component: Home
     },
     {
-      path: '/funruns',
+      path: '/funreads',
       name: 'Funruns',
       component: Funruns
     },
     {
-      path: '/funrun/new',
+      path: '/funread/new',
       name: 'CreateFunrun',
       component: CreateFunrun,
       beforeEnter: AuthGuard
     },
     {
-      path: '/funruns/:id',
+      path: '/funreads/:id',
       name: 'Funrun',
       props: true,
       component: Funrun

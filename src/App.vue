@@ -70,8 +70,8 @@ export default {
       ]
       if (this.userIsAuthenticated) {
         menuItems = [
-          { icon: 'book', title: 'อ่านการ์ตูนทั้งหมด', link: '/funruns' },
-          { icon: 'edit', title: 'จัดการการ์ตูน', link: '/funrun/new' },
+          { icon: 'book', title: 'อ่านการ์ตูนทั้งหมด', link: '/funreads' },
+          { icon: 'library_add', title: 'เพิ่มการ์ตูน', link: '/funread/new' },
           { icon: 'face', title: 'สมาชิกในกลุ่ม', link: '/member' }
         ]
       }

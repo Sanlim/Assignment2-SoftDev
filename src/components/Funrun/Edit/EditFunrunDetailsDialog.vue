@@ -7,7 +7,7 @@
       <v-container>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-card-title>Edit Funrun</v-card-title>
+            <v-card-title>Edit Funread</v-card-title>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
@@ -15,13 +15,13 @@
             <v-card-text>
               <v-text-field
               name="title"
-              label="Title"
+              label="ชื่อเรื่อ"
               id="title"
               v-model="editedTitle"
               required></v-text-field>
               <v-text-field
               name="description"
-              label="Description"
+              label="คำอธิบายการ์ตูน"
               id="description"
               multi-line
               v-model="editedDescription"
@@ -33,8 +33,8 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-card-actions>
-              <v-btn flat class="blue--text darken-1" @click="editDialog = false">Close</v-btn>
-              <v-btn flat class="blue--text darken-1" @click="onSaveChanges">Save</v-btn>
+              <v-btn flat class="blue--text darken-1" @click="editDialog = false">ปิด</v-btn>
+              <v-btn flat class="blue--text darken-1" @click="onSaveChanges">บันทึก</v-btn>
             </v-card-actions>
           </v-flex>
         </v-layout>

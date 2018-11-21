@@ -25,14 +25,14 @@
         :src="funrun.imageUrl"
         height="400px"
         ></v-card-media>
-        <v-card-text><div class="info--text">{{ funrun.date | date }} - {{ funrun.location }}</div>
+        <v-card-text><div class="info--text">{{ funrun.location }}</div>
         <div>{{ funrun.description }}</div></v-card-text>
-        <v-card-actions>
+        <!--<v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="primary">
           Register
         </v-btn>
-      </v-card-actions>
+      </v-card-actions>-->
       </v-card>
     </v-flex>
   </v-layout>

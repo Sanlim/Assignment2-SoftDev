@@ -133,7 +133,7 @@
           date: this.submittableDateTime
         }
         this.$store.dispatch('createFunrun', funrunData)
-        this.$router.push('/funruns/')
+        this.$router.push('/funreads/')
       },
       onPickFile () {
         this.$refs.fileInput.click();
