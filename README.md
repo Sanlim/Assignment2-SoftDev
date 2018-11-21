@@ -1,6 +1,6 @@
 # funread
 
-> [paused 27 Sep: ~80% feature complete] Meetup-style app with images, date, time, authentication, built with Vue + Vuetify + Firebase. Based on devmeetup project by Max Schwarzmueller.
+> [funread] Assignment นี้เป็นส่วนหนึ่งของรายวิชา 240-320 การพัฒนาซอฟต์แวร์เชิงปฏิบัติ.
 
 ## Build Setup
 
