@@ -25,7 +25,7 @@
     <v-toolbar dark class="primary">
       <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer"><v-icon>whatshot</v-icon>
+        <router-link to="/" tag="span" style="cursor: pointer"><v-icon>import_contacts</v-icon>
         funread</router-link>
       </v-toolbar-title>
 
@@ -70,9 +70,9 @@ export default {
       ]
       if (this.userIsAuthenticated) {
         menuItems = [
-          { icon: 'directions_run', title: 'อ่านการ์ตูนทั้งหมด', link: '/funruns' },
-          { icon: 'room', title: 'จัดการการ์ตูน', link: '/funrun/new' },
-          { icon: 'lock_open', title: 'สมาชิกในกลุ่ม', link: '/member' }
+          { icon: 'book', title: 'อ่านการ์ตูนทั้งหมด', link: '/funruns' },
+          { icon: 'edit', title: 'จัดการการ์ตูน', link: '/funrun/new' },
+          { icon: 'face', title: 'สมาชิกในกลุ่ม', link: '/member' }
         ]
       }
       return menuItems
