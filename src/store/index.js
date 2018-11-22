@@ -10,19 +10,11 @@ export const store = new Vuex.Store({
     loadedFunruns: [
       {
         imageUrl: 'https://farm5.staticflickr.com/4728/25523344408_88d90c85b7_k_d.jpg',
-        id: 'asdf12345asdf',
-        title: 'Funrun in London',
+        id: '0001',
+        title: 'ทดสอบการ์ตูน',
         date: new Date(),
-        location: 'London',
-        description: 'Tired of London, tired of life'
-      },
-      {
-        imageUrl: 'https://farm5.staticflickr.com/4414/36574024414_977fb861c2_k_d.jpg',
-        id: 'asdf098765432asdf',
-        title: 'Funrun in Berlin',
-        date: new Date(),
-        location: 'Berlin',
-        description: 'I like bears'
+        location: 'ทดสอบการ์ตูน เป็นอย่างไรมาดูกัน',
+        description: 'ทดสอบการ์ตูน เป็นอย่างไรมาดูกัน'
       }
     ],
     user: null,
@@ -77,6 +69,7 @@ export const store = new Vuex.Store({
               description: obj[key].description,
               imageUrl: obj[key].imageUrl,
               imageUrl2: obj[key].imageUrl2,
+              imageUrl3: obj[key].imageUrl3,
               // date: obj[key].date,
               location: obj[key].location,
               creatorId: obj[key].creatorId
@@ -102,6 +95,7 @@ export const store = new Vuex.Store({
       }
       let imageUrl
       let imageUrl2
+      let imageUrl3
       let key
       let secret = (+new Date).toString(36);
       
@@ -155,6 +149,30 @@ export const store = new Vuex.Store({
           commit('createFunrun', {
             ...funrun,
             imageUrl2: imageUrl2,
+            id: key
+          })
+        })
+
+        .then(key => {
+          
+          const filename3 = payload.image3.name
+          const ext = filename3.slice(filename3.lastIndexOf('.'))
+          return firebase.storage().ref('funruns/' + secret + secret + secret + ext).put(payload.image3)
+        })
+        .then(filedata => {
+          let imagePath = filedata.metadata.fullPath;
+          // creating ref to our image file and get the url
+          return firebase.storage().ref().child(imagePath).getDownloadURL();
+        })
+        .then(url3 => {
+          imageUrl3 = url3;
+          return firebase.database().ref('funruns').child(key).update({ imageUrl3: imageUrl3 });
+        })
+
+        .then(() => {
+          commit('createFunrun', {
+            ...funrun,
+            imageUrl3: imageUrl3,
             id: key
           })
         })

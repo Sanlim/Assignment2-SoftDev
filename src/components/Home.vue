@@ -18,11 +18,11 @@
     </v-layout>
     <v-layout row wrap class="mt-2" v-if="!loading">
       <v-flex xs12>
-        <v-carousel style="cursor: pointer">
+        <v-carousel>
           <v-carousel-item
             v-for="funrun in funruns"
             :key="funrun.id"
-            v-bind:src="funrun.imageUrl" @click="onLoadFunrun(funrun.id)">
+            v-bind:src="funrun.imageUrl">
           <div class="text-xs-center title">
             {{ funrun.title }}
           </div>

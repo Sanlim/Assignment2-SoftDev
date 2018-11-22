@@ -52,6 +52,18 @@
             </v-flex>
           </v-layout>
 
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-btn raised class="primary" @click="onPickFile3">อัปโหลดรูปการ์ตูน 3</v-btn>
+              <input type=file style="display: none" ref="fileInput3" accept="image/*" @change="onFilePicked3"></input>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <img :src="imageUrl3" height="200">
+            </v-flex>
+          </v-layout>
+
           
 
           <v-layout row>
@@ -106,11 +118,13 @@
         location: '',
         imageUrl: '',
         imageUrl2: '',
+        imageUrl3: '',
         description: '',
         date: '',
         time: new Date(),
         image: null,
-        image2: null
+        image2: null,
+        image3: null
       }
     },
     computed: {
@@ -119,6 +133,7 @@
         this.location !== '' &&
         this.imageUrl !== '' &&
         this.imageUrl2 !== '' &&
+        this.imageUrl3 !== '' &&
         this.description !== ''
       },
       submittableDateTime () {
@@ -146,11 +161,15 @@
         if (!this.image2) {
           return
         }
+        if (!this.image3) {
+          return
+        }
         const funrunData = {
           title: this.title,
           location: this.location,
           image: this.image,
           image2: this.image2,
+          image3: this.image3,
           description: this.description,
           date: this.submittableDateTime
         }
@@ -189,6 +208,23 @@
         })
         fileReader.readAsDataURL(files[0])
         this.image2 = files[0]
+      },
+
+      onPickFile3 () {
+        this.$refs.fileInput3.click();
+      },
+      onFilePicked3 (event) {
+        const files = event.target.files
+        let filename3 = files[0].name
+        if (filename3.lastIndexOf('.') <= 0) {
+          return alert('Please add a valid file!')
+        }
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl3 = fileReader.result
+        })
+        fileReader.readAsDataURL(files[0])
+        this.image3 = files[0]
       }
     }
   }

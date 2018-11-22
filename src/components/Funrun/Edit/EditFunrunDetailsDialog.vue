@@ -15,7 +15,7 @@
             <v-card-text>
               <v-text-field
               name="title"
-              label="ชื่อเรื่อ"
+              label="ชื่อเรื่อง"
               id="title"
               v-model="editedTitle"
               required></v-text-field>

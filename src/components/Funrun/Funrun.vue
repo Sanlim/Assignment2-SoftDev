@@ -21,10 +21,17 @@
             <app-edit-funrun-details-dialog :funrun="funrun"></app-edit-funrun-details-dialog>
           </template>
         </v-card-title>
-        <v-card-media
-        :src="funrun.imageUrl"
-        height="400px"
-        ></v-card-media>
+        <v-carousel style="cursor: pointer">
+          <v-carousel-item
+            :src="funrun.imageUrl">
+        </v-carousel-item>
+        <v-carousel-item
+            :src="funrun.imageUrl2">
+        </v-carousel-item>
+        <v-carousel-item
+            :src="funrun.imageUrl3">
+        </v-carousel-item>
+        </v-carousel>
         <v-card-text><div class="info--text">{{ funrun.location }}</div>
         <div>{{ funrun.description }}</div></v-card-text>
         <!--<v-card-actions>
