@@ -1,0 +1,321 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+import * as firebase from 'firebase'
+
+
+Vue.use(Vuex)
+
+export const store = new Vuex.Store({
+  state: {
+    loadedFunruns: [
+      {
+        imageUrl: 'https://farm5.staticflickr.com/4728/25523344408_88d90c85b7_k_d.jpg',
+        id: '0001',
+        title: 'ทดสอบการ์ตูน',
+        date: new Date(),
+        location: 'ทดสอบการ์ตูน เป็นอย่างไรมาดูกัน',
+        description: 'ทดสอบการ์ตูน เป็นอย่างไรมาดูกัน'
+      }
+    ],
+    user: null,
+    loading: false,
+    error: null
+  },
+  mutations: {
+    setLoadedFunruns(state, payload) {
+      state.loadedFunruns = payload
+    },
+    createFunrun(state, payload) {
+      state.loadedFunruns.push(payload)
+    },
+    updateFunrun(state, payload) {
+      const funrun = state.loadedFunruns.find(funrun => {
+        return funrun.id === payload.id
+      })
+      if (payload.title) {
+        funrun.title = payload.title
+      }
+      if (payload.description) {
+        funrun.description = payload.description
+      }
+      // if (payload.date) {
+      //   funrun.date = payload.date
+      // }
+    },
+    setUser(state, payload) {
+      state.user = payload
+    },
+    setLoading(state, payload) {
+      state.loading == payload
+    },
+    setError(state, payload) {
+      state.error = payload
+    },
+    clearError(state) {
+      state.error = null
+    }
+  },
+  actions: {
+    loadFunruns({ commit }) {
+      commit('setLoading', true)
+      firebase.database().ref('funruns').once('value')
+        .then((data) => {
+          const funruns = []
+          const obj = data.val()
+          for (let key in obj) {
+            funruns.push({
+              id: key,
+              title: obj[key].title,
+              description: obj[key].description,
+              imageUrl: obj[key].imageUrl,
+              imageUrl2: obj[key].imageUrl2,
+              imageUrl3: obj[key].imageUrl3,
+              // date: obj[key].date,
+              location: obj[key].location,
+              creatorId: obj[key].creatorId
+            })
+          }
+          commit('setLoadedFunruns', funruns)
+          commit('setLoading', false)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+            commit('setLoading', true)
+          }
+        )
+    },
+    createFunrun({ commit, getters }, payload) {
+      const funrun = {
+        title: payload.title,
+        location: payload.location,
+        description: payload.description,
+        // date: payload.date,
+        creatorId: getters.user.id
+      }
+      let imageUrl
+      let imageUrl2
+      let imageUrl3
+      let key
+      let secret = (+new Date).toString(36);
+      
+      firebase.database().ref('funruns').push(funrun)
+        .then((data) => {
+          key = data.key
+          return key
+        })
+        .then(key => {
+          const filename = payload.image.name
+          const ext = filename.slice(filename.lastIndexOf('.'))
+          return firebase.storage().ref('funruns/' + secret + ext).put(payload.image)
+        })
+        .then(filedata => {
+          let imagePath = filedata.metadata.fullPath;
+          // creating ref to our image file and get the url
+          return firebase.storage().ref().child(imagePath).getDownloadURL();
+        })
+        .then(url => {
+          imageUrl = url;
+          return firebase.database().ref('funruns').child(key).update({ imageUrl: imageUrl });
+        })
+
+        .then(() => {
+          commit('createFunrun', {
+            ...funrun,
+            imageUrl: imageUrl,
+            id: key
+          })
+        })
+
+        
+
+        .then(key => {
+          
+          const filename2 = payload.image2.name
+          const ext = filename2.slice(filename2.lastIndexOf('.'))
+          return firebase.storage().ref('funruns/' + secret + secret + ext).put(payload.image2)
+        })
+        .then(filedata => {
+          let imagePath = filedata.metadata.fullPath;
+          // creating ref to our image file and get the url
+          return firebase.storage().ref().child(imagePath).getDownloadURL();
+        })
+        .then(url2 => {
+          imageUrl2 = url2;
+          return firebase.database().ref('funruns').child(key).update({ imageUrl2: imageUrl2 });
+        })
+
+        .then(() => {
+          commit('createFunrun', {
+            ...funrun,
+            imageUrl2: imageUrl2,
+            id: key
+          })
+        })
+
+        .then(key => {
+          
+          const filename3 = payload.image3.name
+          const ext = filename3.slice(filename3.lastIndexOf('.'))
+          return firebase.storage().ref('funruns/' + secret + secret + secret + ext).put(payload.image3)
+        })
+        .then(filedata => {
+          let imagePath = filedata.metadata.fullPath;
+          // creating ref to our image file and get the url
+          return firebase.storage().ref().child(imagePath).getDownloadURL();
+        })
+        .then(url3 => {
+          imageUrl3 = url3;
+          return firebase.database().ref('funruns').child(key).update({ imageUrl3: imageUrl3 });
+        })
+
+        .then(() => {
+          commit('createFunrun', {
+            ...funrun,
+            imageUrl3: imageUrl3,
+            id: key
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      // Reach out to firebase and store it
+    },
+    updateFunrunData({ commit }, payload) {
+      commit('setLoading', true)
+      const updateObj = {}
+      if (payload.title) {
+        updateObj.title = payload.title
+      }
+      if (payload.description) {
+        updateObj.description = payload.description
+      }
+      // if (payload.date) {
+      //   updateObj.date = payload.date
+      // }
+      firebase.database().ref('funruns').child(payload.id).update(updateObj)
+        .then(() => {
+          commit('setLoading', false)
+          commit('updateFunrun', payload)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setLoading', false)
+        })
+    },
+    signUserUp({ commit }, payload) {
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(
+          user => {
+            commit('setLoading', false)
+            const newUser = {
+              id: user.uid,
+              registeredFunruns: []
+            }
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            commit('setLoading', false)
+            commit('setError', error)
+            console.log(error)
+          }
+        )
+    },
+    signUserIn({ commit }, payload) {
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        .then(
+          user => {
+            commit('setLoading', false)
+            const newUser = {
+              id: user.uid,
+              registeredFunruns: []
+            }
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            commit('setLoading', false)
+            commit('setError', error)
+            console.log(error)
+          }
+        )
+    },
+    signInFacebook() {
+      var provider = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+
+      }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+
+      });
+    },
+    signInGitHub() {
+      var provider = new firebase.auth.GithubAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+    },
+
+    autoSignIn({ commit }, payload) {
+      commit('setUser', { id: payload.uid, registeredFunruns: [] })
+    },
+    logout({ commit }) {
+      firebase.auth().signOut()
+      commit('setUser', null)
+    },
+    clearError({ commit }) {
+      commit('clearError')
+    }
+  },
+  getters: {
+    loadedFunruns(state) {
+      return state.loadedFunruns.sort((funrunA, funrunB) => {
+        return funrunA.date > funrunB.date
+      })
+    },
+    featuredFunruns(state, getters) {
+      return getters.loadedFunruns.slice(0, 5)
+    },
+    loadedFunrun(state) {
+      return (funrunId) => {
+        return state.loadedFunruns.find((funrun) => {
+          return funrun.id === funrunId
+        })
+      }
+    },
+    user(state) {
+      return state.user
+    },
+    loading(state) {
+      return state.loading
+    },
+    error(state) {
+      return state.error
+    }
+  }
+})
