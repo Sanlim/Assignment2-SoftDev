@@ -9,6 +9,18 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.softdev.assignment2"
+    },
+    "cordova-plugin-buildinfo": {
+      "PACKAGE_NAME": "com.softdev.assignment2"
+    },
+    "cordova-universal-links-plugin": {
+      "PACKAGE_NAME": "com.softdev.assignment2"
+    },
+    "cordova-plugin-browsertab": {
+      "PACKAGE_NAME": "com.softdev.assignment2"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.softdev.assignment2"
     }
   },
   "dependent_plugins": {}

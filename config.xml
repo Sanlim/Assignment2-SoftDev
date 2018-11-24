@@ -24,4 +24,15 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="android" spec="^7.1.3" />
+    <plugin name="cordova-plugin-buildinfo" spec="2.0.2" />
+    <plugin name="cordova-universal-links-plugin" spec="~1.2.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
+    <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
+
+    <universal-links>
+    <host name="DYNAMIC_LINK_DOMAIN" scheme="https" />
+    <host name="https://softwaredev-46883.firebaseapp.com/__/auth/handler" scheme="https">
+        <path url="/__/auth/callback"/>
+    </host>
+</universal-links>
 </widget>
