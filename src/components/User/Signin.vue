@@ -8,7 +8,7 @@
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
-           <v-card-text>
+           <v-card-text style="font-family: 'Kanit', sans-serif;">
              <v-container>
                <form @submit.prevent="onSignin">
                  <v-layout row>

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="font-family: 'Kanit', sans-serif;">
     <v-navigation-drawer fixed temporary v-model="sideNav">
       <v-list>
         <v-list-tile
@@ -83,7 +83,12 @@ export default {
   },
   methods: {
     onLogout () {
-      this.$store.dispatch('logout')
+      this.$store.dispatch('logout').then(
+    () => {
+      this.$router.push('/signin')
+      this.clearAll()
+        }
+      )
     }
   }
 }

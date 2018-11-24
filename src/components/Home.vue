@@ -59,6 +59,7 @@
 
 <style scoped>
   .title {
+    font-family: 'Kanit', sans-serif !important;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);

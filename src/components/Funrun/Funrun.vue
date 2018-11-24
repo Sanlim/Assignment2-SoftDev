@@ -21,14 +21,14 @@
             <app-edit-funrun-details-dialog :funrun="funrun"></app-edit-funrun-details-dialog>
           </template>
         </v-card-title>
-        <v-carousel style="cursor: pointer">
-          <v-carousel-item
+        <v-carousel style="cursor: pointer;">
+          <v-carousel-item style="width: 100%; height: auto; margin: 0; position: absolute; top: 40%; -ms-transform: translateY(-50%); transform: translateY(-50%);"
             :src="funrun.imageUrl">
         </v-carousel-item>
-        <v-carousel-item
+        <v-carousel-item style="width: 100%; height: auto; margin: 0; position: absolute; top: 40%; -ms-transform: translateY(-50%); transform: translateY(-50%);"
             :src="funrun.imageUrl2">
         </v-carousel-item>
-        <v-carousel-item
+        <v-carousel-item style="width: 100%; height: auto; margin: 0; position: absolute; top: 40%; -ms-transform: translateY(-50%); transform: translateY(-50%);"
             :src="funrun.imageUrl3">
         </v-carousel-item>
         </v-carousel>
