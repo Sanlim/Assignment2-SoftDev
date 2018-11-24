@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h4>Create a new Funread</h4>
+        <h2>Create a new Funread</h2>
       </v-flex>
     </v-layout>
     <v-layout row>
