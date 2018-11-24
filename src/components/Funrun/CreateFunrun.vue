@@ -30,7 +30,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn raised class="primary" @click="onPickFile">อัปโหลดรูปการ์ตูน</v-btn>
+              <v-btn raised class="primary" @click="onPickFile">อัปโหลดรูปการ์ตูน 1</v-btn>
               <input type=file style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"></input>
             </v-flex>
           </v-layout>
