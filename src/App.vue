@@ -14,6 +14,14 @@
           </v-list-tile-action>
           <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile> -->
+       <v-list-tile to="/signin" v-if="userIsAuthenticated === false">
+          <v-list-tile-action>
+            <v-icon>lock_open</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>{{ $t("message.signin") }}</v-list-tile-content>
+        </v-list-tile>
+
+
         <v-list-tile to="/signup" v-if="userIsAuthenticated === false">
           <v-list-tile-action>
             <v-icon>face</v-icon>
@@ -21,13 +29,7 @@
           <v-list-tile-content>{{ $t("message.signup") }}</v-list-tile-content>
         </v-list-tile>
         
-        <v-list-tile to="/signup" v-if="userIsAuthenticated === false">
-          <v-list-tile-action>
-            <v-icon>lock_open</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>{{ $t("message.signin") }}</v-list-tile-content>
-        </v-list-tile>
-
+ 
         
 
         <v-list-tile to="/funreads" v-if="userIsAuthenticated">
@@ -79,6 +81,13 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         
+        <v-btn to="/signin"
+          v-if="userIsAuthenticated === false"
+          flat >
+          <v-icon left dark>lock_open</v-icon>
+          {{ $t("message.signin") }}
+        </v-btn>
+
         <v-btn to="/signup"
           v-if="userIsAuthenticated === false"
           flat >
@@ -86,12 +95,7 @@
           {{ $t("message.signup") }}
         </v-btn>
 
-        <v-btn to="/signin"
-          v-if="userIsAuthenticated === false"
-          flat >
-          <v-icon left dark>lock_open</v-icon>
-          {{ $t("message.signin") }}
-        </v-btn>
+        
 
         <v-btn to="/funreads"
           v-if="userIsAuthenticated"
