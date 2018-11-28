@@ -30,7 +30,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn raised class="primary" @click="onPickFile">อัปโหลดรูปการ์ตูน 1</v-btn>
+              <v-btn raised color="indigo darken-4" dark @click="onPickFile">อัปโหลดรูปการ์ตูน 1</v-btn>
               <input type=file style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"></input>
             </v-flex>
           </v-layout>
@@ -42,7 +42,7 @@
 
             <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn raised class="primary" @click="onPickFile2">อัปโหลดรูปการ์ตูน 2</v-btn>
+              <v-btn raised dark color="indigo darken-4" @click="onPickFile2">อัปโหลดรูปการ์ตูน 2</v-btn>
               <input type=file style="display: none" ref="fileInput2" accept="image/*" @change="onFilePicked2"></input>
             </v-flex>
           </v-layout>
@@ -54,7 +54,7 @@
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn raised class="primary" @click="onPickFile3">อัปโหลดรูปการ์ตูน 3</v-btn>
+              <v-btn raised dark color="indigo darken-4" @click="onPickFile3">อัปโหลดรูปการ์ตูน 3</v-btn>
               <input type=file style="display: none" ref="fileInput3" accept="image/*" @change="onFilePicked3"></input>
             </v-flex>
           </v-layout>

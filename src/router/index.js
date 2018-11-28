@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Funruns from '@/components/Funrun/Funruns'
+import Members from '@/components/Funrun/Members'
 import CreateFunrun from '@/components/Funrun/CreateFunrun'
 import Profile from '@/components/User/Profile'
 import Signup from '@/components/User/Signup'
@@ -50,6 +51,11 @@ export default new Router({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/member',
+      name: 'Member',
+      component: Members
     },
 
   ],

@@ -71,7 +71,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar dark class="primary">
+    <v-toolbar dark color="indigo darken-4">
       <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer"><v-icon>import_contacts</v-icon>
@@ -142,10 +142,31 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+    <v-bottom-nav
+      absolute
+      color="indigo darken-4"
+    >
+      <v-btn flat color="white">
+        <span>Back</span>
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+
+      <v-btn flat color="white"  to="/">
+        <span>Home</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+
+      <v-btn flat color="white"  to="/member">
+        <span>Members</span>
+        <v-icon>group</v-icon>
+      </v-btn>
+    </v-bottom-nav>
     <main>
       <router-view></router-view>
     </main>
+    
   </v-app>
+  
 </template>
 
 <script>
