@@ -39,7 +39,7 @@
           <v-list-tile-content>{{ $t("message.readall") }}</v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile to="/funread/add" v-if="userIsAuthenticated">
+        <v-list-tile to="/funread/new" v-if="userIsAuthenticated">
           <v-list-tile-action>
             <v-icon>library_add</v-icon>
           </v-list-tile-action>
